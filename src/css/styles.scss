@@ -1,0 +1,563 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;600;800&display=swap');
+
+
+*{
+    font-size:20px;
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+}
+
+
+$colors:(
+    lightMode-background: hsl(0, 0%, 98%),
+    lightMode-text:hsl(200, 15%, 8%),
+    lightMode-elements:hsl(0, 0%, 100%),
+    lightMode-input:hsl(0, 0%, 52%),
+    darkMode-background:hsl(207, 26%, 17%),
+    darkMode-elements:hsl(209, 23%, 22%),
+    darkMode-text:hsl(0, 0%, 100%)
+);
+
+@function getColorOrGradient($color_gradient,$property){
+    @return map-get($color_gradient,$property);
+}
+
+$mobile:425px;
+$desktop:1440px;
+
+
+@mixin mobile {
+    @media screen and(max-width:#{$mobile}) {
+        @content
+    }
+};
+
+@mixin desktop{
+    @media screen and(max-width:#{$desktop}){
+        @content
+    }
+};
+
+
+:export{
+    lightMode-background: getColorOrGradient($colors,lightMode-background);
+    lightMode-text: getColorOrGradient($colors,lightMode-text);
+    lightMode-elements:getColorOrGradient($colors,lightMode-elements);
+    lightMode-input:getColorOrGradient($colors,lightMode-input);
+    darkMode-background:getColorOrGradient($colors,darkMode-background);
+    darkMode-elements:getColorOrGradient($colors,darkMode-elements);
+    darkMode-text:getColorOrGradient($colors,darkMode-text);
+}
+
+
+body{
+    font-family: 'Nunito Sans', sans-serif;
+    height:100%;
+    background-color: getColorOrGradient($colors,lightMode-background);
+}
+
+
+
+
+#main{
+    width:100%;
+    color: getColorOrGradient($colors,lightMode-text);
+}
+
+
+#header{
+    @include desktop{
+        width:100%;
+        height:100%;
+        height:60px;
+        display:flex;
+        justify-content: space-between;
+        align-items:center;
+        background-color: getColorOrGradient($colors,lightMode-elements);
+        box-shadow: 0px 1px 1px 2px #f5f5f5;
+    }
+    
+    #header-main{
+        @include desktop{
+            margin-left: 70px;
+            cursor: pointer;
+            h3{
+                font-weight:800;
+            }
+        }
+
+        @include mobile{
+            margin-left:20px;
+            h3{
+                font-size:0.9rem;
+            }
+        }
+
+    }
+
+    #header-mode{
+        @include desktop{
+            margin-right:70px;
+            cursor: pointer;
+            #moon-icon{
+                font-size:12px;
+                margin-right:5px;
+            }
+    
+            h4{
+                display: inline;
+                font-size:0.7rem;
+                font-weight:600;
+            }
+        }
+
+        @include mobile{
+            margin-right:20px;
+        }
+
+    }
+
+}
+
+#loader{
+    display: none;
+    position:absolute;
+    width:60px;
+    height:60px;
+    top:50%;
+    left:50%;
+    border:7px solid #f3f3f3;
+    border-top:7px solid #2574a9 ;
+    border-radius:50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin{
+    0% {transform: translate(-50%,-50%) rotate(0deg);}
+    100%{transform:translate(-50%,-50%) rotate(360deg);}
+}
+
+#toggle-section{
+    @include desktop{
+        padding:20px 70px;
+        width:100%;
+        height:100%;
+    }
+
+    @include mobile{
+        padding:20px 20px;
+    }
+
+    #countries-list{
+        @include desktop{
+            width:100%;
+            height:100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+    }
+
+    #single-country-detail{
+        @include desktop{
+            width:100%;
+            height:100vh;
+        }
+    }
+}
+
+
+
+#countries-list{
+    width:100%;
+    height:100%;
+    #search_filter-container{
+        @include desktop{
+            width:100%;
+            height:70px;
+            display:flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        @include mobile{
+            height:100px;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom:20px;
+        }
+
+
+        #search-container{
+            @include desktop{
+                position: relative;
+                width:100%;
+                height:100%;
+                max-width:350px;
+                height:40px;
+                background-color: getColorOrGradient($colors,lightMode-elements);
+                border-radius: 3px;
+                display: flex;
+                justify-content: space-evenly;
+                align-items: center;
+                box-shadow: 2px 1px 5px 1px #f5f5f5;
+            }
+
+            #search-input{
+                width:80%;
+                font-size:0.67rem;
+                color:getColorOrGradient($colors,lightMode-input);
+                font-weight: 300;
+                border: transparent;
+            }
+
+            #search-icon{
+                font-size:0.8rem;
+            }
+        }
+
+        #filter-container{
+            @include desktop{
+                width:100%;
+                height:100%;
+                max-width:170px;
+                height:45px;
+                background-color: getColorOrGradient($colors,lightMode-elements);
+                display: flex;
+                flex-direction: column;
+                border-radius: 3px;
+                box-shadow: 2px 1px 5px 1px #f5f5f5;
+            }
+
+            #select-element{
+                width:100%;
+                height:100%;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: space-evenly;
+
+                #selected-value{
+                    font-size:0.7rem;
+                    font-weight:600;
+                }
+
+                #down-icon{
+                    font-size:0.7rem;
+                }
+            }
+
+            #select-options{
+                @include desktop{
+                    display: none;
+                    box-shadow: 2px 1px 5px 1px #f5f5f5;
+                    margin-top:7px;
+                    cursor: pointer;
+                    padding:15px 20px;
+                    width:100%;
+                    max-width:170px;
+                    position: absolute;
+                    top:21%;
+                    background: getColorOrGradient($colors,lightMode-elements);
+                    flex-direction: column;
+                    align-items: flex-start;
+                    border-radius: 4px;
+                }
+
+                @include mobile{
+                    margin-top:55px;
+                }
+
+                .select-option{
+                    margin-bottom:5px;
+                    font-size: 0.7rem;
+                    font-weight:600;
+                }
+
+                .select-option:last-child{
+                    margin-bottom: 0px;
+                }
+            }
+
+        }
+    }
+}
+
+
+#countries-list{
+    #countries{
+        margin-top:20px;
+        width:100%;
+        height:100%;
+        display:grid;
+        justify-content: center;
+        justify-items: center;
+        grid-template-columns: repeat(auto-fit,minmax(12rem,1fr));
+        column-gap: 70px;
+        row-gap: 70px;
+
+        .country{
+            width:250px;
+            height:290px;
+            display:flex;
+            flex-direction: column;
+            border-radius: 12px;
+            box-shadow:2px 2px 2px 0px #f5f5f5;
+            background-color: getColorOrGradient($colors,lightMode-elements);
+
+            .country-flag{
+                width:100%;
+                height:45%;
+                cursor:pointer;
+
+                .flag-image{
+                    width:100%;
+                    height:100%;
+                    object-fit: cover;
+                    border-bottom-left-radius: 0px;
+                    border-bottom-right-radius: 0px;
+                    border-top-left-radius: 12px;
+                    border-top-right-radius: 12px;    
+                }
+            }
+
+            .country-details{
+                padding:25px 20px;
+               .country-region,.country-capital,.country-population,
+                .population-number, .region-name,.capital-name{
+                    font-size:0.65rem;
+                    font-weight:600;
+                    margin-bottom:5px;
+                }
+
+                .capital-name{
+                    margin-bottom:0px;
+                }
+
+                .country-name{
+                    font-weight:800;
+                    font-size:0.8rem;
+                    margin-bottom:15px;
+                    cursor: pointer;
+                }
+
+                .region-name,.capital-name,.population-number{
+                    font-weight: 300;
+                }
+            }
+        }
+
+        .country:last-child{
+            margin-right:0px;
+        }
+    }
+}
+
+
+
+#single-country-detail{
+    @include desktop{
+        width:100%;
+        height:100vh;
+        padding-top:20px;
+        display:flex;
+        flex-direction: column;
+        display:none;
+    }
+    
+    @include mobile{
+        padding-top:5px;
+        justify-content: space-between;
+    }
+
+
+    #back-button-container{
+        @include desktop{
+            width:120px;
+            height:40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: getColorOrGradient($colors,lightMode-elements);
+            border-radius: 5px;
+            box-shadow: 2px 2px 7px 4px #f5f5f5;
+            border:0.5px solid #f5f5f5;
+            cursor: pointer;
+        }
+
+        @include mobile{
+            padding:10px 20px;
+        }
+
+
+
+        #back-icon{
+            @include desktop{
+                margin-right:15px;
+                font-size:0.8rem;
+            }
+
+        }
+
+        #back-button{
+            @include desktop{
+                font-size:0.7rem;
+                font-weight:300;
+            }
+
+        }
+    }
+
+    #flag_info{
+        @include desktop{
+            padding-top:50px;
+            width:100%;
+            height:500px;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        @include mobile{
+            flex-direction: column;
+            justify-content: space-evenly;
+            height:auto;
+            padding-top:20px;
+        }
+
+        #flag{
+            @include desktop{
+                width:42%;
+                height:80%;
+             
+                #flag-image{
+                    width:100%;
+                    height:100%;
+                }
+            }
+
+            @include mobile{
+                width:100%;
+                height:200px;
+            }
+
+        }
+
+        #info{
+            @include desktop{
+                width:50%;
+                display: flex;
+                flex-direction: column;
+                padding-top:60px;
+            }
+
+            @include mobile{
+                width:100%;
+            }
+
+
+            #name{
+                @include desktop{
+                    margin-bottom:25px;
+                    font-size:1.2rem;
+                    font-weight: 800;
+                }
+
+                @include mobile{
+                    font-size:1rem;
+                }
+            }
+            
+            #details{
+                @include desktop{
+                    display:flex;
+                    justify-content: space-between;
+                }
+                @include mobile{
+                    flex-direction: column;
+                }
+            }
+            #details-2{
+                @include mobile{
+                    margin-top:30px;
+                }
+            }
+
+            #native-name,#native-name-value,#population,#population-value,
+            #region,#region-value,#sub-region,#sub-region-value,#capital,#capital-value,
+            #top-level-domain,#top-level-domain-value,#currencies,#currencies-value,
+            #languages,#languages-value,#borders p{
+                @include desktop{
+                    font-size:0.7rem;
+                }
+                @include mobile{
+                    font-size:0.6rem;
+                }
+                
+            }
+
+            #native-name,#population,#region,#sub-region,#capital,
+            #top-level-domain,#currencies,#languages,#borders p{
+                @include desktop{
+                    margin-bottom:8px;
+                    font-weight:600;
+                }
+            }
+            
+            #native-name-value,#population-value,#region-value,#sub-region-value,#capital-value,
+            #top-level-domain-value,#currencies-value,#languages-value{
+                @include desktop{
+                    font-weight:300;
+                }
+                
+            }
+
+            #borders{
+                @include desktop{
+                    margin-top:50px;
+                    display: flex;
+                    justify-content: flex-start;
+                    align-items: center;
+                    width: 100%;
+                }
+
+                @include mobile{
+                    margin-top:20px;
+                    flex-direction: column;
+                    align-items: flex-start;
+                }
+
+                #border-countries{
+                    @include desktop{
+                        margin-left:10px;
+                    }
+
+                    .border-country{
+                        @include desktop{
+                            font-size:0.5rem;
+                            padding:10px 30px;
+                            font-weight:300;
+                            margin-left:5px;
+                            background: transparent;
+                            border:0px;
+                            box-shadow:3px 3px 3px 2px #f5f5f5;
+                            cursor: pointer;
+                        }
+
+                    }
+                }
+            }
+
+        }
+
+
+    }
+}
+
+
+
+
+
+
