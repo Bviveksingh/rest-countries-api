@@ -17,6 +17,7 @@ function display_countries(countriesArray){
             countryFlag.className = "country-flag";
             const flagImage = document.createElement('img');
             flagImage.className = "flag-image";
+            flagImage.alt = "flag-image";
             flagImage.src = countriesArray[i].flag;
             countryFlag.appendChild(flagImage);
 
